@@ -10,7 +10,7 @@
   <name>SW Project with Cucumber</name>
   <url>http://maven.apache.org</url>
 
-  <!-- هنا خصائص المشروع -->
+  <!-- خصائص المشروع -->
   <properties>
     <sonar.organization>cooktesett</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -43,7 +43,7 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- Cucumber JUnit Platform (للتوافق مع JUnit 5) -->
+    <!-- Cucumber JUnit Platform (لتوافق مع JUnit 5) -->
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-junit-platform-engine</artifactId>
@@ -54,12 +54,14 @@
 
   <build>
     <plugins>
-      <!-- استخدم إصدار ثابت من Surefire -->
+      <!-- Surefire plugin لتشغيل الاختبارات -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.22.2</version>
       </plugin>
+
+      <!-- Compiler plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -67,6 +69,30 @@
           <source>16</source>
           <target>16</target>
         </configuration>
+      </plugin>
+
+      <!-- Jacoco plugin لتوليد تقارير التغطية -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.10</version>
+        <executions>
+          <!-- تجهيز الوكيل قبل اختبار الوحدات -->
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <!-- توليد تقرير التغطية بعد اختبار الوحدات -->
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
